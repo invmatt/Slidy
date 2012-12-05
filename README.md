@@ -3,6 +3,10 @@ Slidy
 
 Slidy Carousel is a lightweight carousel for sliding html based content. It was built using the javascript jQuery library.
 
+<h3>Current status</h3>
+
+<pre>Unstable - development release</pre>
+
 <h3>Usage</h3>
 
 <pre>
