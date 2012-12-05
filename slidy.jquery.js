@@ -4,7 +4,7 @@
 *	https://github.com/invmatt
 *	Development release
 *	TODO:
-*	+ Auto scroll needs finishing
+*	+ Auto scroll needs finishing (Partially working)
 *	+ Paging needs finishing
 *	+ Animate the scroll
 */
@@ -12,13 +12,13 @@
 (function($) {
 	$.slidy = function(selector, settings) {
 		var config = {
-			'auto': false, 				// WIP - Doesn't work
-			'autoTime': "5000",
-			'nav': false, 				// Show previous/next links
-			'navPosition': "inside", // inside / outside
-			'paging': false, 			// WIP - Doesn't work
-			'items': '3', 				// How many items to show
-			'scroll': '1'				// How many items to scroll by
+			'auto': false, 				// WIP
+			'autoTime': "5000",		// Set time in ms to scroll by
+			'nav': false,					// Show previous/next links
+			'navPosition': "inside",	// inside / outside
+			'paging': false,				// WIP - Doesn't work
+			'items': '3',					// How many items to show
+			'scroll': '1'						// How many items to scroll by
 		};
 
 		if (settings) { $.extend(config, settings); }
@@ -42,6 +42,8 @@
 		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
 		$(oItem).parent().css('width', '' + oContainWidth + '');
 
+		
+		// Left / Right navigation
 		if (config.nav == true) {
 
 			if (config.navPosition == "outside") {
@@ -71,6 +73,7 @@
 
 		}
 
+		// Auto scroll - currently works in one direction (RTL)
 		if (config.auto == true) {
 
 			function autoRotate() {
