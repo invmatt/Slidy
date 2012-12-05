@@ -1,6 +1,6 @@
 /*
 *	Slidy.jquery.js
-*	Version 1.0.0
+*	Version 1.0.1
 *	https://github.com/invmatt
 *	Development release
 *	TODO:
@@ -30,6 +30,7 @@
 			, oBtnNext = 'slidy-next'
 			, oBtnGnrl = 'slidy-nav'
 			, oItem = $("li", obj)
+			, child = obj.children('ul')
 			, oUnitWidth = ($(obj).outerWidth() / config.items)
 			, currentScroll = 0
 			, count = 0
@@ -47,11 +48,11 @@
 		if (config.nav == true) {
 
 			if (config.navPosition == "outside") {
-				$(obj).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+				$(child).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
 			if (config.navPosition == "inside") {
-				$(obj).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+				$(child).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
 			$('.' + oBtnPrev + '').click(function() {
