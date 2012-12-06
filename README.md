@@ -21,6 +21,7 @@ Slidy Carousel is a lightweight carousel for sliding html based content. It was 
 </pre>
 
 <p>Call the plugin (Example)</p>
+<p>The selector you call should be on the element directly above the UL</p>
 
 <pre>
 $(document).ready(function() {
