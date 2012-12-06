@@ -5,7 +5,7 @@ Slidy Carousel is a lightweight carousel for sliding html based content. It was 
 
 <h3>Current status</h3>
 
-<pre>Unstable - development release</pre>
+<pre>Stable - development release</pre>
 
 <h3>Usage</h3>
 
