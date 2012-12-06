@@ -1,111 +1,118 @@
 /*
-*	Slidy.jquery.js
-*	Version 1.0.1
-*	https://github.com/invmatt
-*	Development release
-*	TODO:
-*	+ Auto scroll needs finishing (Partially working)
-*	+ Paging needs finishing
-*	+ Animate the scroll
+*     Slidy.jquery.js
+*     Version 1.0.2
+*     https://github.com/invmatt
+*     Development release
+*     TODO:
+*     + Paging needs finishing
 */
 
 (function($) {
-	$.slidy = function(selector, settings) {
-		var config = {
-			'auto': false, 				// WIP
-			'autoTime': "5000",		// Set time in ms to scroll by
-			'nav': false,					// Show previous/next links
-			'navPosition': "inside",	// inside / outside
-			'paging': false,				// WIP - Doesn't work
-			'items': '3',					// How many items to show
-			'scroll': '1',						// How many items to scroll by
-			'scrollTime': '1000'
-		};
+    $.slidy = function(selector, settings) {
+        var config = {
+            'auto': false,                      // WIP
+            'autoTime': "5000",     // Set time in ms to scroll by
+            'nav': false,                       // Show previous/next links
+            'navPosition': "inside", // inside / outside
+            'paging': false,              // WIP - Doesn't work
+            'items': '3',                       // How many items to show
+            'scroll': '1',                            // How many items to scroll by
+            'scrollTime': '1000'
+        };
 
-		if (settings) { $.extend(config, settings); }
+        if (settings) { $.extend(config, settings); }
 
-		// Set some basic vars
-			var obj = $(selector);
-			var oBtnPrev = 'slidy-prev';
-			var oBtnNext = 'slidy-next';
-			var oBtnGnrl = 'slidy-nav';
-			var objChild = obj.children('ul');
-			var oItem = $("li", obj);
-			var oUnitWidth = ($(obj).outerWidth() / config.items);
-			var count = 0;
-			var iCount = $(oItem).size();
-			var oContainWidth = oUnitWidth * iCount;
-			var timesRun = 0;
-			
-		// Set item widths
+        // Set some basic vars
+        var obj = $(selector);
+        var oBtnPrev = 'slidy-prev';
+        var oBtnNext = 'slidy-next';
+        var oBtnGnrl = 'slidy-nav';
+        var objChild = obj.children('ul');
+        var oItem = $("li", obj);
+        var oUnitWidth = ($(obj).outerWidth() / config.items);
+        var count = 0;
+        var iCount = $(oItem).size();
+        var oContainWidth = oUnitWidth * iCount;
+        var timesRun = 0;
 
-		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").css('left', '0');
-		$(objChild).css('width', '' + oContainWidth + '');
+        // Set item widths
 
-		
-		// Left / Right navigation
-		if (config.nav === true) {
+        $(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
+        $(objChild).css('width', '' + oContainWidth + '');
 
-			if (config.navPosition === "outside") {
-				$(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-			}
+        var oLeft = parseFloat(objChild.css('left'));
 
-			if (config.navPosition === "inside") {
-				$(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-			}
+        // Left / Right navigation
+        if (config.nav === true) {
 
-			$('.' + oBtnPrev + '').click(function() {
-			
-				timesRun += 1;
-				
-				var currentScroll = $(oItem).parent().css('left').replace('px', '');
-				var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
-					$(objChild).animate ({
-						left: ""+ scrollAmount +"px"
-					}, config.scrollTime );
-					
-			});
 
-			$('.' + oBtnNext + '').click(function() {
-					var currentScroll = $(oItem).parent().css('left').replace('px', '');
-					var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
-					$(objChild).animate ({
-						left: ""+ scrollAmount +"px"
-					}, config.scrollTime );
+            if (config.navPosition === "outside") {
+                $(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+            }
 
-				// Get objChild and check to see if the nav should be disabled
-				
-				if ($(objChild).css('left', '' + oContainWidth + ''  - obj.width)) {
-					$(this).unbind("click").addClass("disabled");
-				}
-					
-			});
+            if (config.navPosition === "inside") {
+                $(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+            }
 
-		}
+            $('.' + oBtnPrev + '').click(function() {
 
-		// Auto scroll - currently works in one direction (RTL)
-		if (config.auto === true) {
+                /*console.log('Left: ' + oLeft);
+                console.log('UL: ' + objChild.width());
+                console.log('DIV: ' + obj.width());*/
 
-			function autoRotate() {
-				var currentScroll = $(oItem).parent().css('left').replace('px', '');
-				var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
-					$(objChild).animate ({
-						left: ""+ scrollAmount +"px"
-					}, 1500 );
-			}
+                if (oLeft == 0) return;
 
-			var timesRun = 0;
-			var interval = setInterval(function() {
-				timesRun += 1;
-				if (timesRun === iCount / config.items + 1) {
-					clearInterval(interval);
-				}
-				window.setInterval(autoRotate);
-			}, config.autoTime);
+                var currentScroll = $(oItem).parent().css('left').replace('px', '');
+                var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
 
-		}
+                $(objChild).animate({
+                    left: "" + scrollAmount + "px"
+                }, config.scrollTime);
+                oLeft = parseInt(scrollAmount);
 
-		return this;
-	};
+            });
+
+            $('.' + oBtnNext + '').click(function() {
+
+                var currentScroll = parseFloat($(oItem).parent().css('left').replace('px', ''));
+
+                if ((objChild.width() + currentScroll) <= obj.width()) return;
+
+                var scrollAmount = currentScroll - (oUnitWidth * config.scroll);
+
+                $(objChild).animate({
+                    left: "" + scrollAmount + "px"
+                }, config.scrollTime);
+
+                oLeft = parseInt(scrollAmount);
+
+            });
+
+        }
+
+        // Auto scroll - currently works in one direction (RTL)
+        if (config.auto === true) {
+
+            function autoRotate() {
+                var currentScroll = $(oItem).parent().css('left').replace('px', '');
+                var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
+                $(objChild).animate({
+                    left: "" + scrollAmount + "px"
+                }, 1500);
+            }
+
+            var timesRun = 0;
+            var interval = setInterval(function() {
+                timesRun += 1;
+                if (timesRun === iCount / config.items + 1) {
+                    clearInterval(interval);
+                }
+                window.setInterval(autoRotate);
+            }, config.autoTime);
+
+        }
+
+        return this;
+    };
 
 })(jQuery);

@@ -17,6 +17,7 @@ Slidy Carousel is a lightweight carousel for sliding html based content. It was 
 'paging'	    default: false		add paging to the carousel
 'items'			default: 3		    How many items to show
 'scroll'		default: 1		    How many items to scroll each click or auto rotate
+'scrollTime'	default: 1000		The time in MilliSeconds to scroll the items
 </pre>
 
 <p>Call the plugin (Example)</p>
