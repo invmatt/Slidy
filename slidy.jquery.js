@@ -24,40 +24,38 @@
 		if (settings) { $.extend(config, settings); }
 
 		// Set some basic vars
-		var obj = $(selector);
-		var oSelf = this
-			, oBtnPrev = 'slidy-prev'
-			, oBtnNext = 'slidy-next'
-			, oBtnGnrl = 'slidy-nav'
-			, oItem = $("li", obj)
-			, child = obj.children('ul')
-			, oUnitWidth = ($(obj).outerWidth() / config.items)
-			, currentScroll = 0
-			, count = 0
-			, iCount = $(oItem).size()
-			, oContainWidth = oUnitWidth * iCount
-		;
+
+			var obj = $(selector);
+			var oBtnPrev = 'slidy-prev';
+			var oBtnNext = 'slidy-next';
+			var oBtnGnrl = 'slidy-nav';
+			var oItem = $("li", obj);
+			var child = obj.children('ul');
+			var oUnitWidth = ($(obj).outerWidth() / config.items);
+			var count = 0;
+			var iCount = $(oItem).size();
+			var oContainWidth = oUnitWidth * iCount;
 
 		// Set item widths
 
-		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
+		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").css('left', '0');
 		$(oItem).parent().css('width', '' + oContainWidth + '');
 
 		
 		// Left / Right navigation
-		if (config.nav == true) {
+		if (config.nav === true) {
 
-			if (config.navPosition == "outside") {
+			if (config.navPosition === "outside") {
 				$(child).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
-			if (config.navPosition == "inside") {
+			if (config.navPosition === "inside") {
 				$(child).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
 			$('.' + oBtnPrev + '').click(function() {
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
-				scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
+				var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
 				//console.log('Prev: ' + scrollAmount);
 				$(oItem).parent().css('left', scrollAmount + 'px');
 
@@ -65,7 +63,7 @@
 
 			$('.' + oBtnNext + '').click(function() {
 					var currentScroll = $(oItem).parent().css('left').replace('px', '');
-					scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
+					var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
 					//console.log('Next: ' + scrollAmount);
 					$(oItem).parent().css('left', scrollAmount + 'px');
 					//console.log('Count: ' + iCount);
@@ -75,11 +73,11 @@
 		}
 
 		// Auto scroll - currently works in one direction (RTL)
-		if (config.auto == true) {
+		if (config.auto === true) {
 
 			function autoRotate() {
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
-				scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
+				var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
 				//console.log('Next: ' + scrollAmount);
 				$(oItem).parent().css('left', scrollAmount + 'px');
 				//console.log('Count: ' + iCount);
