@@ -18,56 +18,67 @@
 			'navPosition': "inside",	// inside / outside
 			'paging': false,				// WIP - Doesn't work
 			'items': '3',					// How many items to show
-			'scroll': '1'						// How many items to scroll by
+			'scroll': '1',						// How many items to scroll by
+			'scrollTime': '1000'
 		};
 
 		if (settings) { $.extend(config, settings); }
 
 		// Set some basic vars
-
 			var obj = $(selector);
 			var oBtnPrev = 'slidy-prev';
 			var oBtnNext = 'slidy-next';
 			var oBtnGnrl = 'slidy-nav';
+			var objChild = obj.children('ul');
 			var oItem = $("li", obj);
-			var child = obj.children('ul');
 			var oUnitWidth = ($(obj).outerWidth() / config.items);
 			var count = 0;
 			var iCount = $(oItem).size();
 			var oContainWidth = oUnitWidth * iCount;
-
+			var timesRun = 0;
+			
 		// Set item widths
 
 		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").css('left', '0');
-		$(oItem).parent().css('width', '' + oContainWidth + '');
+		$(objChild).css('width', '' + oContainWidth + '');
 
 		
 		// Left / Right navigation
 		if (config.nav === true) {
 
 			if (config.navPosition === "outside") {
-				$(child).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+				$(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
 			if (config.navPosition === "inside") {
-				$(child).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+				$(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
 			$('.' + oBtnPrev + '').click(function() {
+			
+				timesRun += 1;
+				
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
 				var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
-				//console.log('Prev: ' + scrollAmount);
-				$(oItem).parent().css('left', scrollAmount + 'px');
-
+					$(objChild).animate ({
+						left: ""+ scrollAmount +"px"
+					}, config.scrollTime );
+					
 			});
 
 			$('.' + oBtnNext + '').click(function() {
 					var currentScroll = $(oItem).parent().css('left').replace('px', '');
 					var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
-					//console.log('Next: ' + scrollAmount);
-					$(oItem).parent().css('left', scrollAmount + 'px');
-					//console.log('Count: ' + iCount);
+					$(objChild).animate ({
+						left: ""+ scrollAmount +"px"
+					}, config.scrollTime );
 
+				// Get objChild and check to see if the nav should be disabled
+				
+				if ($(objChild).css('left', '' + oContainWidth + ''  - obj.width)) {
+					$(this).unbind("click").addClass("disabled");
+				}
+					
 			});
 
 		}
@@ -78,9 +89,9 @@
 			function autoRotate() {
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
 				var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
-				//console.log('Next: ' + scrollAmount);
-				$(oItem).parent().css('left', scrollAmount + 'px');
-				//console.log('Count: ' + iCount);
+					$(objChild).animate ({
+						left: ""+ scrollAmount +"px"
+					}, 1500 );
 			}
 
 			var timesRun = 0;
