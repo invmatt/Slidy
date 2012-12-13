@@ -20,6 +20,21 @@ Slidy Carousel is a lightweight carousel for sliding html based content. It was 
 'scrollTime'	default: 1000		The time in MilliSeconds to scroll the items
 </pre>
 
+<h3>CSS (Minimal)</h3>
+<pre>
+.slidy {
+	overflow: hidden;
+}
+
+	.slidy-contain {
+		position: relative;
+	}
+	
+		.slidy-item {
+			float: left;
+		}
+</pre>
+
 <p>Call the plugin (Example)</p>
 <p>The selector you call should be on the element directly above the UL</p>
 
