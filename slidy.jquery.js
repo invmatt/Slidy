@@ -1,6 +1,6 @@
 /*
 *     Slidy.jquery.js
-*     Version 1.0.2
+*     Version 1.0.3
 *     https://github.com/invmatt
 *     Development release
 *     TODO:
@@ -41,6 +41,7 @@
 
         $(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
         $(objChild).css('width', '' + oContainWidth + '');
+        $(objchild).css('left', '0');
 
         var oLeft = parseFloat(objChild.css('left'));
 
