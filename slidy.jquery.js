@@ -1,6 +1,6 @@
 /*
 *     Slidy.jquery.js
-*     Version 1.0.3
+*     Version 1.0.2
 *     https://github.com/invmatt
 *     Development release
 *     TODO:
@@ -24,18 +24,18 @@
 
         // Set some basic vars
         
-          var obj = $(selector)
-        , oBtnPrev = 'slidy-prev'
-        , oBtnNext = 'slidy-next'
-        , oBtnGnrl = 'slidy-nav'
-        , objChild = obj.children('ul')
-        , oItem = $("li", obj)
-        , oUnitWidth = ($(obj).outerWidth() / config.items)
-        , count = 0
-        , iCount = $(oItem).size()
-        , oContainWidth = oUnitWidth * iCount
-        , timesRun = 0
-        ;
+        // Set some basic vars
+        var obj = $(selector);
+        var oBtnPrev = 'slidy-prev';
+        var oBtnNext = 'slidy-next';
+        var oBtnGnrl = 'slidy-nav';
+        var objChild = obj.children('ul');
+        var oItem = $("li", obj);
+        var oUnitWidth = ($(obj).outerWidth() / config.items);
+        var count = 0;
+        var iCount = $(oItem).size();
+        var oContainWidth = oUnitWidth * iCount;
+        var timesRun = 0;
 
         // Set item widths
 
