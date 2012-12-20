@@ -1,29 +1,27 @@
 /*
-*     Slidy.jquery.js
-*     Version 1.0.2
-*     https://github.com/invmatt
-*     Development release
-*     TODO:
-*     + Paging needs finishing
+* Slidy.jquery.js
+* Version 1.0.2
+* https://github.com/invmatt
+* Development release
+* TODO:
+* + Paging needs finishing
 */
 
 (function($) {
     $.slidy = function(selector, settings) {
         var config = {
-            'auto': false,                      // WIP
-            'autoTime': "5000",     // Set time in ms to scroll by
-            'nav': false,                       // Show previous/next links
+            'auto': false, // WIP
+            'autoTime': "5000", // Set time in ms to scroll by
+            'nav': false, // Show previous/next links
             'navPosition': "inside", // inside / outside
-            'paging': false,              // WIP - Doesn't work
-            'items': '3',                       // How many items to show
-            'scroll': '1',                            // How many items to scroll by
+            'paging': false, // WIP - Doesn't work
+            'items': '3', // How many items to show
+            'scroll': '1', // How many items to scroll by
             'scrollTime': '1000'
         };
 
         if (settings) { $.extend(config, settings); }
 
-        // Set some basic vars
-        
         // Set some basic vars
         var obj = $(selector);
         var oBtnPrev = 'slidy-prev';
@@ -41,7 +39,6 @@
 
         $(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
         $(objChild).css('width', '' + oContainWidth + '');
-        $(objchild).css('left', '0');
 
         var oLeft = parseFloat(objChild.css('left'));
 
@@ -60,8 +57,8 @@
             $('.' + oBtnPrev + '').click(function() {
 
                 /*console.log('Left: ' + oLeft);
-                console.log('UL: ' + objChild.width());
-                console.log('DIV: ' + obj.width());*/
+console.log('UL: ' + objChild.width());
+console.log('DIV: ' + obj.width());*/
 
                 if (oLeft == 0) return;
 
