@@ -1,118 +1,135 @@
 /*
 * Slidy.jquery.js
-* Version 1.0.2
-* https://github.com/invmatt
+* Version 1.0.3
 * Development release
-* TODO:
-* + Paging needs finishing
+* https://github.com/invmatt/Slidy
 */
 
 (function($) {
     $.slidy = function(selector, settings) {
-        var config = {
-            'auto': false, // WIP
-            'autoTime': "5000", // Set time in ms to scroll by
-            'nav': false, // Show previous/next links
-            'navPosition': "inside", // inside / outside
-            'paging': false, // WIP - Doesn't work
-            'items': '3', // How many items to show
-            'scroll': '1', // How many items to scroll by
-            'scrollTime': '1000'
-        };
+		var config = {
+			'auto': false, // If the scroller should move automatically
+			'autoTime': "5000", // Set time in ms to scroll by
+			'nav': false, // Show previous/next links
+			'navPosition': "inside", // inside / outside
+			'paging': false, // Show paging
+			'items': '3', // How many items to show
+			'scroll': '1', // How many items to scroll by
+			'scrollTime': '1000'
+		};
 
-        if (settings) { $.extend(config, settings); }
+		if (settings) { $.extend(config, settings); }
 
-        // Set some basic vars
-        var obj = $(selector);
-        var oBtnPrev = 'slidy-prev';
-        var oBtnNext = 'slidy-next';
-        var oBtnGnrl = 'slidy-nav';
-        var objChild = obj.children('ul');
-        var oItem = $("li", obj);
-        var oUnitWidth = ($(obj).outerWidth() / config.items);
-        var count = 0;
-        var iCount = $(oItem).size();
-        var oContainWidth = oUnitWidth * iCount;
-        var timesRun = 0;
+		// Set some basic vars
+		var obj = $(selector)
+		, oBtnPrev = 'slidy-prev'
+		, oBtnNext = 'slidy-next'
+		, oBtnGnrl = 'slidy-nav'
+		, objChild = obj.children('ul')
+		, oItem = $("li", obj)
+		, oUnitWidth = ($(obj).outerWidth() / config.items)
+		, count = 0
+		, iCount = $(oItem).size()
+		, oContainWidth = oUnitWidth * iCount
+		, timesRun = 0
+		;
 
-        // Set item widths
+		// Set item widths
+		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
+		$(objChild).css('width', '' + oContainWidth + '');
 
-        $(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain");
-        $(objChild).css('width', '' + oContainWidth + '');
+		var oLeft = parseFloat(objChild.css('left'));
 
-        var oLeft = parseFloat(objChild.css('left'));
-
-        // Left / Right navigation
-        if (config.nav === true) {
+		// Left / Right navigation
+		if (config.nav === true) {
 
 
-            if (config.navPosition === "outside") {
-                $(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-            }
+			if (config.navPosition === "outside") {
+				$(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+			}
 
-            if (config.navPosition === "inside") {
-                $(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-            }
+			if (config.navPosition === "inside") {
+				$(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+			}
 
-            $('.' + oBtnPrev + '').click(function() {
+			$('.' + oBtnPrev + '').click(function() {
 
-                /*console.log('Left: ' + oLeft);
-console.log('UL: ' + objChild.width());
-console.log('DIV: ' + obj.width());*/
+				/*console.log('Left: ' + oLeft);
+				console.log('UL: ' + objChild.width());
+				console.log('DIV: ' + obj.width());*/
 
-                if (oLeft == 0) return;
+				if (oLeft == 0) return;
 
-                var currentScroll = $(oItem).parent().css('left').replace('px', '');
-                var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
+				var currentScroll = $(oItem).parent().css('left').replace('px', '');
+				var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
 
-                $(objChild).animate({
-                    left: "" + scrollAmount + "px"
-                }, config.scrollTime);
-                oLeft = parseInt(scrollAmount);
+				$(objChild).animate({
+					left: "" + scrollAmount + "px"
+				}, config.scrollTime);
+				oLeft = parseInt(scrollAmount);
 
-            });
+			});
 
-            $('.' + oBtnNext + '').click(function() {
+			$('.' + oBtnNext + '').click(function() {
 
-                var currentScroll = parseFloat($(oItem).parent().css('left').replace('px', ''));
+				var currentScroll = parseFloat($(oItem).parent().css('left').replace('px', ''));
 
-                if ((objChild.width() + currentScroll) <= obj.width()) return;
+				if ((objChild.width() + currentScroll) <= obj.width()) return;
 
-                var scrollAmount = currentScroll - (oUnitWidth * config.scroll);
+				var scrollAmount = currentScroll - (oUnitWidth * config.scroll);
 
-                $(objChild).animate({
-                    left: "" + scrollAmount + "px"
-                }, config.scrollTime);
+				$(objChild).animate({
+					left: "" + scrollAmount + "px"
+				}, config.scrollTime);
 
-                oLeft = parseInt(scrollAmount);
+				oLeft = parseInt(scrollAmount);
 
-            });
+			});
 
-        }
+		}
 
-        // Auto scroll - currently works in one direction (RTL)
-        if (config.auto === true) {
+		// Paging
+		if (config.paging === true) {
 
-            function autoRotate() {
-                var currentScroll = $(oItem).parent().css('left').replace('px', '');
-                var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
-                $(objChild).animate({
-                    left: "" + scrollAmount + "px"
-                }, 1500);
-            }
+			$(obj).append('<ul id="paging-container"></ul>');
+			$(oItem).each(function() {
+				count++;
+				$("#paging-container").append('<li id="paging-' + count + '" class="page-item">' + count + '</li>');
 
-            var timesRun = 0;
-            var interval = setInterval(function() {
-                timesRun += 1;
-                if (timesRun === iCount / config.items + 1) {
-                    clearInterval(interval);
-                }
-                window.setInterval(autoRotate);
-            }, config.autoTime);
+			});
+			$('.page-item').click(function() {
+				var index = $(this).attr("id").replace('paging-', '');
+				//objChild.css('left', '-' + (oUnitWidth * index - oUnitWidth) + 'px');
+				$(objChild).animate({
+					left: '-' + (oUnitWidth * index - oUnitWidth) + 'px'
+				}, config.scrollTime);
 
-        }
+			});
+		}
 
-        return this;
-    };
+		// Auto scroll - currently works in one direction (RTL)
+		if (config.auto === true) {
+
+			function autoRotate() {
+				var currentScroll = $(oItem).parent().css('left').replace('px', '');
+				var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
+				$(objChild).animate({
+					left: "" + scrollAmount + "px"
+				}, config.scrollTime);
+			}
+
+			var timesRun = 0;
+			var interval = setInterval(function() {
+				timesRun += 1;
+				if (timesRun === iCount / config.items + 1) {
+					clearInterval(interval);
+				}
+				window.setInterval(autoRotate);
+			}, config.autoTime);
+
+		}
+
+		return this;
+	};
 
 })(jQuery);
