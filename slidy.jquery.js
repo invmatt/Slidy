@@ -97,8 +97,11 @@
 				$("#paging-container").append('<li id="paging-' + count + '" class="page-item">' + count + '</li>');
 
 			});
+			$(".page-item:first-child").addClass("current");
 			$('.page-item').click(function() {
 				var index = $(this).attr("id").replace('paging-', '');
+				$(".page-item").removeClass("current");
+				$(this).addClass("current");
 				//objChild.css('left', '-' + (oUnitWidth * index - oUnitWidth) + 'px');
 				$(objChild).animate({
 					left: '-' + (oUnitWidth * index - oUnitWidth) + 'px'
