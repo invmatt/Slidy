@@ -1,7 +1,7 @@
 Slidy
 =====
 
-Slidy Carousel is a lightweight carousel for sliding html based content. It was built using the javascript jQuery library.
+Slidy Carousel is a lightweight jQuery carousel for sliding html based content.
 
 <h3>Current status</h3>
 
