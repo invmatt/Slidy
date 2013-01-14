@@ -5,7 +5,9 @@ Slidy Carousel is a lightweight jQuery carousel for sliding html based content.
 
 <h3>Current status</h3>
 
-<pre>Stable - development release</pre>
+<pre>Stable - development release
+<a href="https://github.com/invmatt/Slidy/wiki/Known-issues"> List of known issues</a>
+</pre>
 
 <h3>Usage</h3>
 
