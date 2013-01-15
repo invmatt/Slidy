@@ -31,7 +31,7 @@
 		, count = 0
 		, iCount = $(oItem).size()
 		, oContainWidth = oUnitWidth * iCount
-		, timesRun = 0
+		, timesRun = 0 // This needs removing, just use count instead.
 		;
 
 		// Set item widths
