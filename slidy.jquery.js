@@ -35,7 +35,7 @@
 		;
 
 		// Set item widths
-		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").parent().attr("data-plugin", "slidy");
+		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").attr("data-plugin", "slidy");
 		$(objChild).css('width', '' + oContainWidth + '');
 
 		var oLeft = parseFloat(objChild.css('left'));
