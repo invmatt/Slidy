@@ -1,6 +1,6 @@
 /*
 * Slidy.jquery.js
-* Version 1.0.3.1
+* Version 1.0.4
 * Development release
 * https://github.com/invmatt/Slidy
 */
@@ -114,8 +114,9 @@
 		if (config.auto === true) {
 
 			function autoRotate() {
+				var autoCalc = oContainWidth - (oUnitWidth * config.scroll);
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
-				var scrollAmount = parseFloat(currentScroll) - (oUnitWidth * config.scroll);
+				var scrollAmount = parseFloat(oUnitWidth * timesRun);
 				$(objChild).animate({
 					left: "" + scrollAmount + "px"
 				}, config.scrollTime);
@@ -124,7 +125,7 @@
 			var timesRun = 0;
 			var interval = setInterval(function() {
 				timesRun += 1;
-				if (timesRun === iCount / config.items + 1) {
+				if (timesRun === iCount / config.items - config.scroll) {
 					clearInterval(interval);
 				}
 				window.setInterval(autoRotate);
