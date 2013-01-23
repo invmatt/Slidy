@@ -118,8 +118,11 @@
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
 				var scrollAmount = parseFloat(oUnitWidth * timesRun);
 				$(objChild).animate({
-					left: "" + scrollAmount + "px"
+					left: "-" + scrollAmount + "px"
 				}, config.scrollTime);
+				var pagingSwitch = timesRun + 1;
+				$(".page-item").removeClass('current');
+				$("#paging-" + pagingSwitch + "").addClass("current");
 			}
 
 			var timesRun = 0;
