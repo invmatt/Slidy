@@ -1,6 +1,6 @@
 /*
 * Slidy.jquery.js
-* Version 1.0.4
+* Version 1.0.4-r2
 * Development release
 * https://github.com/invmatt/Slidy
 */
@@ -45,7 +45,7 @@
 
 
 			if (config.navPosition === "outside") {
-				$(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
+				$(obj).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 			}
 
 			if (config.navPosition === "inside") {
