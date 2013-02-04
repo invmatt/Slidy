@@ -16,13 +16,13 @@
 (function($) {
     $.fn.slidy = function (options) {
   	var config = $.extend({
-		'auto': false, // If the scroller should move automatically
-		'autoTime': "5000", // Set time in ms to scroll by
-		'nav': false, // Show previous/next links
-		'paging': false, // Show paging
-		'items': '3', // How many items to show
-		'scroll': '1', // How many items to scroll by
-		'scrollTime': '1000'
+	'auto': false,		// If the scroller should move automatically
+	'autoTime': "5000",	// Set time in ms to scroll by
+	'nav': false,		// Show previous/next links
+	'paging': false,	// Show paging
+	'items': '3',		// How many items to show
+	'scroll': '1',		// How many items to scroll by
+	'scrollTime': '1000'
   	}, options);
 
 	// Helpers
