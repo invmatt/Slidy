@@ -17,7 +17,6 @@
 			'auto': false, // If the scroller should move automatically
 			'autoTime': "5000", // Set time in ms to scroll by
 			'nav': false, // Show previous/next links
-			'navPosition': "inside", // inside / outside
 			'paging': false, // Show paging
 			'items': '3', // How many items to show
 			'scroll': '1', // How many items to scroll by
@@ -37,7 +36,7 @@
 		, count = 0
 		, iCount = $(oItem).size()
 		, oContainWidth = oUnitWidth * iCount
-		, timesRun = 0 // This needs removing, just use count instead.
+		, respond = $(function() { windowSize(); }); $(window).resize(windowSize);
 		;
 
 		// Set item widths
@@ -49,14 +48,8 @@
 		// Left / Right navigation
 		if (config.nav === true) {
 
+			$(obj).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 
-			if (config.navPosition === "outside") {
-				$(objChild).parent().append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-			}
-
-			if (config.navPosition === "inside") {
-				$(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-			}
 
 			$('.' + oBtnPrev + '').click(function() {
 
@@ -126,15 +119,13 @@
 				$(objChild).animate({
 					left: "-" + scrollAmount + "px"
 				}, config.scrollTime);
-				var pagingSwitch = timesRun + 1;
+				var pagingSwitch = count + 1;
 				$(".page-item").removeClass('current');
 				$("#paging-" + pagingSwitch + "").addClass("current");
 			}
-
-			var timesRun = 0;
 			var interval = setInterval(function() {
-				timesRun += 1;
-				if (timesRun === iCount / config.items - config.scroll) {
+				count += 1;
+				if (count === iCount / config.items - config.scroll) {
 					clearInterval(interval);
 				}
 				window.setInterval(autoRotate);
