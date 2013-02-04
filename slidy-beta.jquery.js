@@ -22,7 +22,9 @@
 	'paging': false,	// Show paging
 	'items': '3',		// How many items to show
 	'scroll': '1',		// How many items to scroll by
-	'scrollTime': '1000'
+	'scrollTime': '1000',
+	before: function () {},
+	after: function () {}
   	}, options);
 
 	// Helpers
