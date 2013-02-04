@@ -1,6 +1,6 @@
 /*
 * Slidy.jquery.js
-* Version 1.0.4-r2
+* Version 1.0.4-r3
 * Development release
 * https://github.com/invmatt/Slidy
 */
@@ -36,7 +36,11 @@
 
 		// Set item widths
 		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").attr("data-plugin", "slidy");
-		$(objChild).css('width', '' + oContainWidth + '');
+		$(objChild).css({
+			width : ''+ oContainWidth +'',
+			left : '0'
+		});
+		
 
 		var oLeft = parseFloat(objChild.css('left'));
 
