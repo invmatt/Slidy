@@ -4,7 +4,7 @@
 * Version 2.0.0-b1
 * https://github.com/invmatt/Slidy
 
-IMPORTANT: Breaks backwards compatibility
+IMPORTANT: Partially backwards compatible. Requires call be changed
 
 *********************************************
 * Beta versions may include bugs or features
