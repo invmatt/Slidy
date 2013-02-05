@@ -36,21 +36,21 @@ $('#selector').slidy({items: 5});
 		
     		return this.each(function() {
 
-			var o = options	
-			, obj = $(this)
-			// Classes
-			, oBtnPrev = 'slidy-prev'
-			, oBtnNext = 'slidy-next'
-			, oBtnGnrl = 'slidy-nav'
-			, objChild = obj.children('ul')
-			// Helpers
-			, oItem = $("li", obj)
-			, oUnitWidth = ($(obj).outerWidth() / o.items)
-			, count = 0
-			, iCount = $(oItem).size()
-			, oContainWidth = oUnitWidth * iCount
-			, timesRun = 0 // This needs removing, just use count instead.
-			;
+		  var o = options	
+		, obj = $(this)
+		// Classes
+		, oBtnPrev = 'slidy-prev'
+		, oBtnNext = 'slidy-next'
+		, oBtnGnrl = 'slidy-nav'
+		, pageClass = 'page-item'
+		// Helpers
+		, objChild = obj.children('ul')
+		, oItem = $("li", obj)
+		, oUnitWidth = ($(obj).outerWidth() / o.items)
+		, count = 0
+		, iCount = $(oItem).size()
+		, oContainWidth = oUnitWidth * iCount
+		;
 				  
 		// Set item widths
 		$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").attr("data-plugin", "slidy");
@@ -104,17 +104,16 @@ $('#selector').slidy({items: 5});
 
 		// Paging
 		if (o.paging) {
-
 			$(obj).append('<ul id="paging-container"></ul>');
 			$(oItem).each(function() {
 				count++;
-				$("#paging-container").append('<li id="paging-' + count + '" class="page-item">' + count + '</li>');
+				$("#paging-container").append('<li id="paging-' + count + '" class="'+ pageClass +'">' + count + '</li>');
 
 			});
-			$(".page-item:first-child").addClass("current");
-			$('.page-item').click(function() {
+			$("."+ pageClass +":first-child").addClass("current");
+			$('.'+ pageClass +'').click(function() {
 				var index = $(this).attr("id").replace('paging-', '');
-				$(".page-item").removeClass("current");
+				$("."+ pageClass +"").removeClass("current");
 				$(this).addClass("current");
 				//objChild.css('left', '-' + (oUnitWidth * index - oUnitWidth) + 'px');
 				$(objChild).animate({
@@ -130,19 +129,18 @@ $('#selector').slidy({items: 5});
 			function autoRotate() {
 				var autoCalc = oContainWidth - (oUnitWidth * o.scroll);
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
-				var scrollAmount = parseFloat(oUnitWidth * timesRun);
+				var scrollAmount = parseFloat(oUnitWidth * count);
 				$(objChild).animate({
 					left: "-" + scrollAmount + "px"
 				}, o.scrollTime);
-				var pagingSwitch = timesRun + 1;
-				$(".page-item").removeClass('current');
+				var pagingSwitch = count + 1;
+				$("."+ pageClass +"").removeClass('current');
 				$("#paging-" + pagingSwitch + "").addClass("current");
 			}
 
-			var timesRun = 0;
 			var interval = setInterval(function() {
-				timesRun += 1;
-				if (timesRun === iCount / o.items - o.scroll) {
+				count += 1;
+				if (count === iCount / o.items - o.scroll) {
 					clearInterval(interval);
 				}
 				window.setInterval(autoRotate);
