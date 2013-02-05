@@ -63,16 +63,8 @@ $('#selector').slidy({items: 5});
 		var oLeft = parseFloat(objChild.css('left'));
 
 		// Left / Right navigation
-		if (o.nav === true) {
-
-
-			if (o.navPosition === "outside") {
-				$(obj).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-			}
-
-			if (o.navPosition === "inside") {
-				$(objChild).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
-			}
+		if (o.nav) {
+			$(obj).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 
 			$('.' + oBtnPrev + '').click(function() {
 
@@ -111,7 +103,7 @@ $('#selector').slidy({items: 5});
 		}
 
 		// Paging
-		if (o.paging === true) {
+		if (o.paging) {
 
 			$(obj).append('<ul id="paging-container"></ul>');
 			$(oItem).each(function() {
@@ -133,7 +125,7 @@ $('#selector').slidy({items: 5});
 		}
 
 		// Auto scroll - currently works in one direction (RTL)
-		if (o.auto === true) {
+		if (o.auto) {
 
 			function autoRotate() {
 				var autoCalc = oContainWidth - (oUnitWidth * o.scroll);
