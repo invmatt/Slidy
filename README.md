@@ -49,3 +49,10 @@ $(document).ready(function() {
 	});
 });
 </pre>
+
+<h4>BETA: Call Slidy using:</h4>
+<pre>
+$('#selector').slidy({
+  items: 5
+});
+</pre>
