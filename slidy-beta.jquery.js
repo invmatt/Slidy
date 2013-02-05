@@ -3,15 +3,18 @@
 * Slidy Beta is not meant for production deployment
 * Version 2.0.0-b1
 * https://github.com/invmatt/Slidy
+
+IMPORTANT: Breaks backwards compatibility
+
+*********************************************
+* Beta versions may include bugs or features
+* that don't work as intended. Use the stable
+* version if required for production.
+*********************************************
+
+Slidy is now called using:
+$('#selector').slidy({items: 5});
 */
-
-// IMPORTANT: Breaks backwards compatibility
-
-// *********************************************
-// * Beta versions may include bugs or features
-// * that don't work as intended. Use the stable
-// * version if required for production.
-// *********************************************
 
 (function($){
 	$.fn.extend({ 
