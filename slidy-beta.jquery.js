@@ -25,7 +25,6 @@ $('#selector').slidy({items: 5});
 				'auto': false, // If the scroller should move automatically
 				'autoTime': "5000", // Set time in ms to scroll by
 				'nav': false, // Show previous/next links
-				'navPosition': "inside", // inside / outside
 				'paging': false, // Show paging
 				'items': '3', // How many items to show
 				'scroll': '1', // How many items to scroll by
@@ -46,7 +45,7 @@ $('#selector').slidy({items: 5});
 		// Helpers
 		, objChild = obj.children('ul')
 		, oItem = $("li", obj)
-		, oUnitWidth = ($(obj).outerWidth() / o.items)
+		, oUnitWidth = parseInt(($(obj).outerWidth() / o.items))
 		, count = 0
 		, iCount = $(oItem).size()
 		, oContainWidth = oUnitWidth * iCount
@@ -127,7 +126,6 @@ $('#selector').slidy({items: 5});
 		if (o.auto) {
 
 			function autoRotate() {
-				var autoCalc = oContainWidth - (oUnitWidth * o.scroll);
 				var currentScroll = $(oItem).parent().css('left').replace('px', '');
 				var scrollAmount = parseFloat(oUnitWidth * count);
 				$(objChild).animate({
