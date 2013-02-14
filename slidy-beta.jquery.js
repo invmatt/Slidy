@@ -1,7 +1,7 @@
 /*
 * slidy-beta.jquery.js
 * Slidy Beta is not meant for production deployment
-* Version 2.0.0-b1
+* Version 2.0.0-b2
 * https://github.com/invmatt/Slidy
 
 IMPORTANT: Partially backwards compatible. Requires call be changed
@@ -135,7 +135,10 @@ $('#selector').slidy({items: 5});
 					var interval = setInterval(function() {
 						count++
 						if (count === parseInt(iCount / o.scroll)) {
-							clearInterval(interval);
+							count = 0;
+							$(objChild).animate({
+								left: "0"
+							}, o.scrollTime);
 						}
 						window.setInterval(autoRotate);
 					}, o.autoTime);
