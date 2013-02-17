@@ -1,7 +1,7 @@
 /*
 * slidy-beta.jquery.js
 * Slidy Beta is not meant for production deployment
-* Version 2.0.0-b2
+* Version 2.0.0-b3
 * https://github.com/invmatt/Slidy
 
 IMPORTANT: Partially backwards compatible. Requires call be changed
@@ -23,26 +23,25 @@ $('#selector').slidy({items: 5});
 			//Settings list and the default values
 			var defaults = {
 				'auto': false, // If the scroller should move automatically
-				'autoTime': "5000", // Set time in ms to scroll by
+				'scrollTime': "5000", // Set time in ms to scroll by
 				'nav': false, // Show previous/next links
 				'paging': false, // Show paging
 				'items': '3', // How many items to show
-				'scroll': '1', // How many items to scroll by
-				'scrollTime': '1000'
+				'scroll': '1' // How many items to scroll by
 			};
 
 			var options = $.extend(defaults, options);
 
 			return this.each(function() {
 
-				var o = options
+		var config = options
 		, obj = $(this)
-				// Classes
+		// Classes
 		, oBtnPrev = 'slidy-prev'
 		, oBtnNext = 'slidy-next'
 		, oBtnGnrl = 'slidy-nav'
 		, pageClass = 'page-item'
-				// Helpers
+		// Helpers
 		, objChild = obj.children('ul')
 		, oItem = $("li", obj)
 		, oUnitWidth = parseInt(($(obj).outerWidth() / o.items))
@@ -51,8 +50,9 @@ $('#selector').slidy({items: 5});
 		, oContainWidth = oUnitWidth * iCount
 		;
 
-				// Set item widths
-				$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item").parent().addClass("slidy-contain").attr("data-plugin", "slidy");
+				// Set item widths and default classes
+				$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item");
+				$(objChild).addClass("slidy.contain");
 				$(objChild).css({
 					width: '' + oContainWidth + '',
 					left: '0'
@@ -62,7 +62,7 @@ $('#selector').slidy({items: 5});
 				var oLeft = parseFloat(objChild.css('left'));
 
 				// Left / Right navigation
-				if (o.nav) {
+				if (config.nav) {
 					$(obj).append('<a class="' + oBtnPrev + ' ' + oBtnGnrl + '">Previous</a><a class="' + oBtnNext + ' ' + oBtnGnrl + '">Next</a>');
 
 					$('.' + oBtnPrev + '').click(function() {
@@ -70,11 +70,11 @@ $('#selector').slidy({items: 5});
 						if (oLeft == 0) return;
 
 						var currentScroll = $(oItem).parent().css('left').replace('px', '');
-						var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * o.scroll);
+						var scrollAmount = parseFloat(currentScroll) + (oUnitWidth * config.scroll);
 
 						$(objChild).animate({
 							left: "" + scrollAmount + "px"
-						}, o.scrollTime);
+						}, config.scrollTime);
 						oLeft = parseInt(scrollAmount);
 
 					});
@@ -85,11 +85,11 @@ $('#selector').slidy({items: 5});
 
 						if ((objChild.width() + currentScroll) <= obj.width()) return;
 
-						var scrollAmount = currentScroll - (oUnitWidth * o.scroll);
+						var scrollAmount = currentScroll - (oUnitWidth * config.scroll);
 
 						$(objChild).animate({
 							left: "" + scrollAmount + "px"
-						}, o.scrollTime);
+						}, config.scrollTime);
 
 						oLeft = parseInt(scrollAmount);
 
@@ -98,7 +98,7 @@ $('#selector').slidy({items: 5});
 				}
 
 				// Paging
-				if (o.paging) {
+				if (config.paging) {
 					$(obj).append('<ul id="paging-container"></ul>');
 					$(oItem).each(function() {
 						count++;
@@ -113,19 +113,19 @@ $('#selector').slidy({items: 5});
 						//objChild.css('left', '-' + (oUnitWidth * index - oUnitWidth) + 'px');
 						$(objChild).animate({
 							left: '-' + (oUnitWidth * index - oUnitWidth) + 'px'
-						}, o.scrollTime);
+						}, config.scrollTime);
 
 					});
 				}
 
 				// Auto scroll - currently works in one direction (RTL)
-				if (o.auto) {
+				if (config.auto) {
 
 					function autoRotate() {
-						var autoCalc = oUnitWidth * o.scroll * (count - 1);
+						var autoCalc = oUnitWidth * config.scroll * (count - 1);
 						$(objChild).animate({
 							left: "-" + autoCalc + "px"
-						}, o.scrollTime);
+						}, config.scrollTime);
 
 						var pagingSwitch = count + 1;
 						$("." + pageClass + "").removeClass('current');
@@ -138,10 +138,10 @@ $('#selector').slidy({items: 5});
 							count = 0;
 							$(objChild).animate({
 								left: "0"
-							}, o.scrollTime);
+							}, config.scrollTime);
 						}
 						window.setInterval(autoRotate);
-					}, o.autoTime);
+					}, config.scrollTime);
 
 				}
 
