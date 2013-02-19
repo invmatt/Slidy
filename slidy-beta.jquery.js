@@ -44,7 +44,7 @@ $('#selector').slidy({items: 5});
 		// Helpers
 		, objChild = obj.children('ul')
 		, oItem = $("li", obj)
-		, oUnitWidth = parseInt(($(obj).outerWidth() / o.items))
+		, oUnitWidth = parseInt(($(obj).outerWidth() / config.items))
 		, count = 0
 		, iCount = $(oItem).size()
 		, oContainWidth = oUnitWidth * iCount
@@ -134,7 +134,7 @@ $('#selector').slidy({items: 5});
 
 					var interval = setInterval(function() {
 						count++
-						if (count === parseInt(iCount / o.scroll)) {
+						if (count === parseInt(iCount / config.scroll)) {
 							count = 0;
 							$(objChild).animate({
 								left: "0"
