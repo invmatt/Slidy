@@ -24,7 +24,7 @@ $('#selector').slidy({items: 5});
 			var defaults = {
 				'auto': false, // If the scroller should move automatically
 				'scrollTime': "5000", // Set time in ms to scroll by
-				'loop': false // If auto enabled should it loop through the items
+				'loop': false, // If auto enabled should it loop through the items
 				'nav': false, // Show previous/next links
 				'paging': false, // Show paging
 				'items': '3', // How many items to show
