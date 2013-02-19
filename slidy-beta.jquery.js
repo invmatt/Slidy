@@ -24,6 +24,7 @@ $('#selector').slidy({items: 5});
 			var defaults = {
 				'auto': false, // If the scroller should move automatically
 				'scrollTime': "5000", // Set time in ms to scroll by
+				'loop': false // If auto enabled should it loop through the items
 				'nav': false, // Show previous/next links
 				'paging': false, // Show paging
 				'items': '3', // How many items to show
@@ -52,7 +53,7 @@ $('#selector').slidy({items: 5});
 
 				// Set item widths and default classes
 				$(oItem).css('width', '' + oUnitWidth + 'px').addClass("slidy-item");
-				$(objChild).addClass("slidy.contain");
+				$(objChild).addClass("slidy-contain");
 				$(objChild).css({
 					width: '' + oContainWidth + '',
 					left: '0'
@@ -135,10 +136,13 @@ $('#selector').slidy({items: 5});
 					var interval = setInterval(function() {
 						count++
 						if (count === parseInt(iCount / config.scroll)) {
-							count = 0;
-							$(objChild).animate({
-								left: "0"
-							}, config.scrollTime);
+							if (config.loop) {
+								//console.log("loop enabled");
+							}
+							if (!config.loop) {
+								clearInterval(interval);
+								//console.log("loop disabled");
+							}
 						}
 						window.setInterval(autoRotate);
 					}, config.scrollTime);
